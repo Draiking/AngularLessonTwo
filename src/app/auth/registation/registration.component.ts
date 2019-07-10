@@ -20,25 +20,44 @@ export class RegistrationComponent implements OnInit {
 
     ngOnInit() {
         this.form = new FormGroup({
-            email: new FormControl(null, [Validators.required, Validators.email]),
+            email: new FormControl(null, [Validators.required, Validators.email], this.forbiddenEmails.bind(this)),
             password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
             name: new FormControl(null, [Validators.required]),
             agree: new FormControl(false, [Validators.requiredTrue]),
         });
     }
 
-    onSubmit() {
+    async onSubmit() {
         const {email, password, name} = this.form.value;
         const user = new User(email, password, name);
+        const res = await this.usersService.createNewUser(user);
+        if (res) {
+            this.router.navigate(['/login'], {queryParams: {nowCanLogin: true}});
+        } else {
+            alert('Создание пользователя не удалось');
+        }
 
-        this.usersService.createNewUser(user)
-            .then((user: User) => {
-                this.router.navigate(['/login'], {
-                    queryParams: {
-                        nowCanLogin: true
-                    }
+        /*        this.usersService.createNewUser(user)
+                    .then(() => {
+                        this.router.navigate(['/login'], {
+                            queryParams: {
+                                nowCanLogin: true
+                            }
+                        });
+                    });*/
+    }
+
+    forbiddenEmails(control: FormControl): Promise<any> {
+        return new Promise((resolve) => {
+            this.usersService.createNewUser(control.value)
+                .then((user: User) => {
+                   if (user) {
+                        resolve({forbiddenEmail: true});
+                   } else {
+                       resolve(null);
+                   }
                 });
-            });
+        });
     }
 
 }

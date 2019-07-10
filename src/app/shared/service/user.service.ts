@@ -26,7 +26,13 @@ export class UserService {
 
     async createNewUser(user: User): Promise<any> {
         return this.http.post('http://localhost:3000/users', user).toPromise()
-            .then((user: User) => JSON.stringify(user));
+            .then(() => {
+               return true;
+            })
+            .catch((error) => {
+                console.log(error);
+                return false;
+            });
     }
 
 }

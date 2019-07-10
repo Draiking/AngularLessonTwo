@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
 
     private showMessage(message: Message) {
         this.message = message;
-        window.setTimeout(() => {
+        setTimeout(() => {
             this.message.text = '';
         }, 5000);
     }
