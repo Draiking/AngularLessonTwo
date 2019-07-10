@@ -1,6 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 
+import {User} from '../models/user.modele';
 
 @Injectable()
 export class UserService {
@@ -18,9 +19,14 @@ export class UserService {
                     localStorage.setItem('user', JSON.stringify(user));
                     return res[0];
                 } else {
-                   return false;
+                    return false;
                 }
             });
+    }
+
+    async createNewUser(user: User): Promise<any> {
+        return this.http.post('http://localhost:3000/users', user).toPromise()
+            .then((user: User) => JSON.stringify(user));
     }
 
 }
