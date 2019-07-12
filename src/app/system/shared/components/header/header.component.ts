@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+
 import {User} from '../../../../shared/models/user.modele';
+import {AuthService} from '../../../../shared/service/auth.service';
 
 @Component({
     selector: 'app-header',
@@ -12,7 +15,9 @@ export class HeaderComponent implements OnInit {
     date: Date = new Date();
     user: User;
 
-    constructor() {
+    constructor(private authService: AuthService,
+                private router: Router
+    ) {
     }
 
     ngOnInit() {
@@ -20,7 +25,8 @@ export class HeaderComponent implements OnInit {
     }
 
     onLogout() {
-
+        this.authService.logout();
+        this.router.navigate(['/login']);
     }
 
 }
