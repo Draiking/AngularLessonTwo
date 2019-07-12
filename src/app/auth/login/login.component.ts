@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
         if (user) {
             this.showMessage({text: 'Добро пожаловать', type: 'danger'});
             this.authService.login();
+            this.router.navigate(['/system', 'bill']);
         } else {
             this.showMessage({text: 'Пользователя не существует', type: 'danger'});
         }
