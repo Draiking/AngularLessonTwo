@@ -2,11 +2,13 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 
 import {User} from '../models/user.modele';
+import {BaseApi} from '../core/base-api';
 
 @Injectable()
-export class UserService {
+export class UserService extends BaseApi{
 
-    constructor(private http: HttpClient) {
+    constructor(public http: HttpClient) {
+        super(http);
     }
 
 
