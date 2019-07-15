@@ -12,7 +12,7 @@
   <ng-container *ngIf="isLoaded">
     <div class="row">
       <app-bill-card [bill]="bill" [currency]="currency"></app-bill-card>
-      <app-currency-card></app-currency-card>
+      <app-currency-card [currency]="currency"></app-currency-card>
     </div>
   </ng-container>
 </section>
