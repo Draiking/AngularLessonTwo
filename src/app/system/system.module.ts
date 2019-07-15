@@ -14,10 +14,14 @@ import {DropdownDirective} from './shared/directives/dropdown.directive';
 import {BillCardComponent} from './bill-page/bill-card/bill-card.component';
 import {CurrencyCardComponent} from './bill-page/currency-card/currency-card.component';
 import {BillService} from './shared/services/bill.service';
+import {MomentPipe} from './shared/pipes/moment.pipe';
+import { AddEventComponent } from './records-page/add-event/add-event.component';
+import { AddCategoryComponent } from './records-page/add-category/add-category.component';
+import { EditEventComponent } from './records-page/edit-event/edit-event.component';
 
 @NgModule({
     imports: [CommonModule, SharedModule, SystemRoutingModule],
-    declarations: [BillPageComponent, HistoryPageComponent, PlanningPageComponent, RecordsPageComponent, SystemComponent, SlidebarComponent, HeaderComponent, DropdownDirective, BillCardComponent, CurrencyCardComponent],
+    declarations: [BillPageComponent, HistoryPageComponent, PlanningPageComponent, RecordsPageComponent, SystemComponent, SlidebarComponent, HeaderComponent, DropdownDirective, BillCardComponent, CurrencyCardComponent, MomentPipe, AddEventComponent, AddCategoryComponent, EditEventComponent],
     providers: [BillService]
 })
 

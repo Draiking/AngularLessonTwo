@@ -42,13 +42,15 @@ export class BillPageComponent implements OnInit, OnDestroy {
             .subscribe((currency: any ) => {
                 this.currency = currency;
                 this.isLoaded = true;
-            });
+    });
     }
 
 
     ngOnDestroy() {
         this.sub1.unsubscribe();
-        this.sub2.unsubscribe();
+        if (this.sub2) {
+            this.sub2.unsubscribe();
+        }
     }
 
 }
