@@ -16,7 +16,7 @@
         <input type="number" id="category-value" class="form-control" [ngModel]="1" name="capacity" #capacity="ngModel" required min="1">
         <span class="form-help-text" *ngIf="capacity.invalid && capacity.touched">Валидация нет ошибки</span>
       </div>
-      <button type="submit" class="btn btn-primary">Добавить</button>
+      <button type="submit" class="btn btn-primary" [disabled]="f.invalid">Добавить</button>
     </form>
   </div>
 </div>
