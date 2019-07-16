@@ -1,16 +1,18 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {CategoryModel} from '../../shared/models/category.model';
 import {CategoriesService} from '../../shared/services/categories.service';
 import {Message} from '../../../shared/models/message.modele';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-edit-event',
     templateUrl: './edit-event.component.html',
     styleUrls: ['./edit-event.component.scss']
 })
-export class EditEventComponent implements OnInit {
+export class EditEventComponent implements OnInit, OnDestroy {
 
+    sub1: Subscription;
     @Input() categories: CategoryModel[];
     @Output() onCategoryEdit = new EventEmitter<CategoryModel>();
 
@@ -18,7 +20,7 @@ export class EditEventComponent implements OnInit {
     currentCategory: CategoryModel;
     message: Message;
 
-    constructor( private categoriesService: CategoriesService) {
+    constructor(private categoriesService: CategoriesService) {
     }
 
     ngOnInit() {
@@ -40,13 +42,19 @@ export class EditEventComponent implements OnInit {
 
         const category = new CategoryModel(name, capacity, +this.currentCategoryId);
 
-        this.categoriesService.updateCategory(category)
+        this.sub1 = this.categoriesService.updateCategory(category)
             .subscribe(() => {
                 this.onCategoryEdit.emit(category);
                 this.message.text = 'Success';
                 setTimeout(() => this.message.text = '', 2000);
             });
 
+    }
+
+    ngOnDestroy(): void {
+        if (this.sub1) {
+            this.sub1.unsubscribe();
+        }
     }
 
 }

@@ -19,11 +19,12 @@ import { AddEventComponent } from './records-page/add-event/add-event.component'
 import { AddCategoryComponent } from './records-page/add-category/add-category.component';
 import { EditEventComponent } from './records-page/edit-event/edit-event.component';
 import {CategoriesService} from './shared/services/categories.service';
+import {EventsService} from './shared/services/events.service';
 
 @NgModule({
     imports: [CommonModule, SharedModule, SystemRoutingModule],
     declarations: [BillPageComponent, HistoryPageComponent, PlanningPageComponent, RecordsPageComponent, SystemComponent, SlidebarComponent, HeaderComponent, DropdownDirective, BillCardComponent, CurrencyCardComponent, MomentPipe, AddEventComponent, AddCategoryComponent, EditEventComponent],
-    providers: [BillService, CategoriesService]
+    providers: [BillService, CategoriesService,EventsService]
 })
 
 export class SystemModule {
