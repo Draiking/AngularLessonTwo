@@ -9,7 +9,7 @@ export class BaseApi {
     constructor(public http: HttpClient) {
     }
 
-    private getUrl(url: string = ''): string {
+    public getUrl(url: string = ''): string {
         return this.baseUrl + url;
     }
 
