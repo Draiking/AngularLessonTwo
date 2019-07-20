@@ -64,14 +64,14 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
         }*/
 
         this.categories.forEach((cat) => {
-           const catEvent = this.events.filter((e) => e.category === cat.id && e.type === 'outcome');
-           this.charData.push({
-               name: cat.name,
-               value: catEvent.reduce( (total, e) => {
-                   total += e.amount;
-                   return total;
-               }, 0)
-           });
+            const catEvent = this.events.filter((e) => e.category === cat.id && e.type === 'outcome');
+            this.charData.push({
+                name: cat.name,
+                value: catEvent.reduce((total, e) => {
+                    total += e.amount;
+                    return total;
+                }, 0)
+            });
         });
 
     }

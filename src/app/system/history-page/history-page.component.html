@@ -6,7 +6,9 @@
 <ng-container *ngIf="isLoaded && charData.length > 0">
   <app-history-chart [data]="charData"></app-history-chart>
 </ng-container>
+<ng-container *ngIf="categories && events">
+  <app-history-events [categories]="categories" [events]="events"></app-history-events>
+</ng-container>
 
-<app-history-events></app-history-events>
 <app-history-filter></app-history-filter>
 

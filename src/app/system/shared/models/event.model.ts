@@ -6,6 +6,7 @@ export class AppEventModel {
         public date: string,
         public description: string,
         public id?: string,
+        public catName?: string,
     ) {
     }
 }
