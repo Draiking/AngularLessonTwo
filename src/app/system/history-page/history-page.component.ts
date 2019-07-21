@@ -27,6 +27,8 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
 
     charData = [];
 
+    isFilterVisible = false;
+
 
     ngOnInit() {
         this.s1 = combineLatest(
@@ -74,6 +76,22 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
             });
         });
 
+    }
+
+    private toggleFilterVisibility(onFilt: boolean) {
+        this.isFilterVisible = onFilt;
+    }
+
+    openFilter() {
+        this.toggleFilterVisibility(true);
+    }
+
+    onFilterApply() {
+
+    }
+
+    onFilterCancel() {
+        this.toggleFilterVisibility(false);
     }
 
     ngOnDestroy(): void {
