@@ -1,9 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import {combineLatest, Subscription} from 'rxjs';
+import * as moment from 'moment';
+
 import {CategoriesService} from '../shared/services/categories.service';
 import {EventsService} from '../shared/services/events.service';
-import {combineLatest, Subscription} from 'rxjs';
 import {CategoryModel} from '../shared/models/category.model';
 import {AppEventModel} from '../shared/models/event.model';
+
 
 @Component({
     selector: 'app-history-page',
@@ -23,6 +26,7 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
 
     categories: CategoryModel[];
     events: AppEventModel[];
+    filterEvents: AppEventModel[];
 
 
     charData = [];
@@ -37,6 +41,7 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
         ).subscribe((data: any) => {
             this.categories = data[0];
             this.events = data[1];
+            this.serOriginalEvents();
             this.buildChartData();
             this.isLoaded = true;
         });
@@ -44,29 +49,15 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
 
     }
 
-    buildChartData(): void {
-        /*for (const category of this.categories) {
-            const eventForCategory = this.events.filter((event) => {
-                return event.category === category.id;
-            });
-            let ammountSum = 0;
-            eventForCategory.forEach((event) => {
-                if (event.type === 'income') {
-                    ammountSum -= event.amount;
-                } else  {
-                    ammountSum += event.amount;
-                }
-            });
-            console.log(ammountSum);
-            this.charData.push({
-                name: category.name,
-                value: ammountSum
-            });
+    private serOriginalEvents() {
+        this.filterEvents = this.events.slice();
+    }
 
-        }*/
+    buildChartData(): void {
+        this.charData = [];
 
         this.categories.forEach((cat) => {
-            const catEvent = this.events.filter((e) => e.category === cat.id && e.type === 'outcome');
+            const catEvent = this.filterEvents.filter((e) => e.category === cat.id && e.type === 'outcome');
             this.charData.push({
                 name: cat.name,
                 value: catEvent.reduce((total, e) => {
@@ -75,6 +66,28 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
                 }, 0)
             });
         });
+
+
+        /*for (const category of this.categories) {
+      const eventForCategory = this.events.filter((event) => {
+          return event.category === category.id;
+      });
+      let ammountSum = 0;
+      eventForCategory.forEach((event) => {
+          if (event.type === 'income') {
+              ammountSum -= event.amount;
+          } else  {
+              ammountSum += event.amount;
+          }
+      });
+      console.log(ammountSum);
+      this.charData.push({
+          name: category.name,
+          value: ammountSum
+      });
+
+  }*/
+
 
     }
 
@@ -87,11 +100,31 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
     }
 
     onFilterApply(filterData) {
-        console.log(filterData);
+        this.toggleFilterVisibility(false);
+        this.serOriginalEvents();
+
+        const startPeriod = moment().startOf(filterData.period).startOf('d');
+        const endPeriod = moment().endOf(filterData.period).endOf('d');
+
+        this.filterEvents = this.filterEvents
+            .filter((e) => {
+                return filterData.types.indexOf(e.type) !== -1;
+            })
+            .filter((e) => {
+                return filterData.categories.indexOf(e.category.toString()) !== -1;
+            })
+            .filter((e) => {
+                const momentDate = moment(e.date, 'DD.MM.YYYY');
+                return momentDate.isBetween(startPeriod, endPeriod);
+            });
+
+        this.buildChartData();
     }
 
     onFilterCancel() {
         this.toggleFilterVisibility(false);
+        this.serOriginalEvents();
+        this.buildChartData();
     }
 
     ngOnDestroy(): void {

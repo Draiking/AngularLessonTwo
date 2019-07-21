@@ -12,7 +12,7 @@
     <app-history-chart [data]="charData"></app-history-chart>
 </ng-container>
 <ng-container *ngIf="categories && events">
-    <app-history-events [categories]="categories" [events]="events"></app-history-events>
+    <app-history-events [categories]="categories" [events]="filterEvents"></app-history-events>
 </ng-container>
 <div *ngIf="isFilterVisible">
     <app-history-filter
