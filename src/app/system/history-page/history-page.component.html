@@ -16,7 +16,7 @@
 </ng-container>
 <div *ngIf="isFilterVisible">
     <app-history-filter
-            (onFilterApply)="onFilterApply()"
+            (onFilterApply)="onFilterApply($event)"
             (onFilterCancel)="onFilterCancel()"
             [categories]="categories"
     >
