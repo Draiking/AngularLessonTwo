@@ -30,6 +30,8 @@ export class LoginComponent implements OnInit {
             .subscribe((params: Params) => {
                 if (params[`nowCanLogin`]) {
                     this.showMessage({text: 'Теперь можете войти', type: 'success'});
+                } else if (params[`accessDenied`]) {
+                    this.showMessage({text: 'Вам нужно зайти в кабинет или зарегистрироваться', type: 'danger'});
                 }
             });
     }
