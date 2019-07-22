@@ -21,5 +21,6 @@ import {RegistrationComponent} from './registation/registration.component';
 })
 
 export class AuthModule {
-
+    constructor() {
+    }
 }

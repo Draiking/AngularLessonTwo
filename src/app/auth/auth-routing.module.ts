@@ -6,6 +6,7 @@ import {AuthComponent} from './auth.component';
 import {RegistrationComponent} from './registation/registration.component';
 
 const routes: Routes = [
+    {path: '', pathMatch: 'full',  redirectTo: 'login'},
     {path: '', component: AuthComponent, children: [
             {path: 'login', component: LoginComponent},
             {path: 'registration', component: RegistrationComponent},
@@ -20,4 +21,7 @@ const routes: Routes = [
 })
 
 export class AuthRoutingModule {
+    constructor( ) {
+
+    }
 }

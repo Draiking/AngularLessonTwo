@@ -32,7 +32,7 @@ export class RegistrationComponent implements OnInit {
         const user = new User(email, password, name);
         const res = await this.usersService.createNewUser(user);
         if (res) {
-            this.router.navigate(['/login'], {queryParams: {nowCanLogin: true}});
+            this.router.navigate(['auth/login'], {queryParams: {nowCanLogin: true}});
         } else {
             alert('Создание пользователя не удалось');
         }

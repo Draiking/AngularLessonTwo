@@ -24,11 +24,16 @@ import {HistoryChartComponent} from './history-page/history-chart/history-chart.
 import {HistoryEventsComponent} from './history-page/history-events/history-events.component';
 import {HistoryDetailComponent} from './history-page/history-detail/history-detail.component';
 import {HistoryFilterComponent} from './history-page/history-filter/history-filter.component';
-import {NgxChartsModule, PieChartModule} from '@swimlane/ngx-charts';
+import {PieChartModule} from '@swimlane/ngx-charts';
 import {FilterSearchPipe} from './shared/pipes/filter-search.pipe';
 
 @NgModule({
-    imports: [CommonModule, SharedModule, SystemRoutingModule, PieChartModule,  NgxChartsModule],
+    imports: [
+        CommonModule,
+        SharedModule,
+        SystemRoutingModule,
+        PieChartModule
+    ],
     declarations: [BillPageComponent, HistoryPageComponent, PlanningPageComponent, RecordsPageComponent, SystemComponent, SlidebarComponent,
         HeaderComponent, DropdownDirective, BillCardComponent, CurrencyCardComponent, MomentPipe, AddEventComponent, AddCategoryComponent,
         EditEventComponent, HistoryChartComponent, HistoryEventsComponent, HistoryDetailComponent, HistoryFilterComponent,
