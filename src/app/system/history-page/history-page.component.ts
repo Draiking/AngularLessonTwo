@@ -134,3 +134,4 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
     }
 
 }
+

@@ -9,6 +9,9 @@
   </div>
 </div>
 <section class="section">
+  <ng-container *ngIf="!isLoaded">
+    <app-loader></app-loader>
+  </ng-container>
   <ng-container *ngIf="isLoaded">
     <div class="row">
       <app-bill-card [bill]="bill" [currency]="currency"></app-bill-card>
